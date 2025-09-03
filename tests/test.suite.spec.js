@@ -1,11 +1,18 @@
-// Suite entry point that imports all other spec files.
-// Playwright will execute tests registered in the imported modules.
+// This file is now a configuration file for test grouping
+// Instead of importing test files (which causes errors), we use test.describe
 
-import './login.spec.js';
-import './locators.spec.js';
-import './example.spec.js';
-import './codegen.spec.js';
+import { test } from '@playwright/test';
 
-// Optional: you can add tags or grouping via a no-op describe if desired
-// import { test } from '@playwright/test';
-// test.describe('All tests suite', () => {});
+// You can use this file to organize tests into groups
+test.describe('Test organization example', () => {
+  // Tests can be organized here with hooks or shared setup
+  test.beforeEach(async ({ page }) => {
+    // Common setup for tests if needed
+  });
+  
+  // You can add specific tests here if needed
+  test('Verify test suite is properly configured', async () => {
+    // This is just a placeholder test to verify the suite is working
+    test.expect(true).toBeTruthy();
+  });
+});

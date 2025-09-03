@@ -10,6 +10,7 @@ jobs:
   test:
     name: Run Playwright Tests
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
       - name: Checkout code
@@ -19,6 +20,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -28,6 +30,8 @@ jobs:
 
       - name: Run Playwright tests
         run: npx playwright test
+        env:
+          CI: true
 
       - name: Upload test results
         if: always()
@@ -36,3 +40,11 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+          
+      - name: Upload test traces on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-traces
+          path: test-results/
+          retention-days: 7
