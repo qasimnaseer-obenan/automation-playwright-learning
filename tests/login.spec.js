@@ -47,7 +47,7 @@ test('launch browser with context', async () => {
   await toastMessage.waitFor({timeout: 60000});
   await expect(toastMessage).toBeVisible({ timeout: 60000 });
 
-  await page.pause();
+  
   // Cleanup
   await context.close();
   await browser.close();
